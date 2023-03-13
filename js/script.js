@@ -95,7 +95,6 @@ function addClickListenersToTags() {
 }
 
 addClickListenersToTags();
-
 function lowercaseAndHyphenString(string) {
     // mario-monti
     let lowercase = string.toLowerCase();
@@ -107,7 +106,6 @@ function lowercaseAndHyphenString(string) {
 
 function generateAuthors() {
     const authors = document.querySelectorAll('.post-author');
-    console.log(authors);
     const postAuthors = document.querySelector('.authors');
     let html = '';
     let arrAuthor = Array.from(authors).map(author => author.innerHTML.replace('by ', ''));
