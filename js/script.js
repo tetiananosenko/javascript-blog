@@ -1,5 +1,12 @@
 'use strict'
 
+const templates = {
+    articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+    tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+    authorCloudLink: Handlebars.compile(document.querySelector('#template-author-cloud-link').innerHTML),
+    articleTagsLink: Handlebars.compile(document.querySelector('#template-article-tags-link').innerHTML)
+}
+
 function titleClickHandler(event) {
     event.preventDefault();
     const clickedElement = this;
@@ -28,7 +35,7 @@ const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
     optCloudClassCount = 5,
-    optCloudClassPrefix = ' tag-size-';
+    optCloudClassPrefix = 'tag-size-';
 
 function generateTitleLinks(customSelector = '') {
     const titleList = document.querySelector(optTitleListSelector);
@@ -38,7 +45,8 @@ function generateTitleLinks(customSelector = '') {
     for (let article of articles) {
         const articleId = article.getAttribute('id');
         const articleTitle = article.querySelector(optTitleSelector).innerHTML;
-        const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+        const linkHTMLData = { id: articleId, title: articleTitle };
+        const linkHTML = templates.articleLink(linkHTMLData);
         html += linkHTML;
     }
 
@@ -77,7 +85,9 @@ function generateTags() {
         const dataTagsArr = dataTags.split(' ');
 
         for (let tag of dataTagsArr) {
-            const linkHTML = `<li><a href="#tag-${tag}">${tag}</a></li> `;
+            const linkHTMLData = {id: tag};
+            const linkHTML = templates.articleTagsLink(linkHTMLData);
+            // const linkHTML = `<li><a href="#tag-${tag}">${tag}</a></li> `;
             html += linkHTML;
             if (!allTags.hasOwnProperty(tag)) {
                 allTags[tag] = 1;
@@ -90,12 +100,20 @@ function generateTags() {
     const tagsParams = calculateTagParamas(allTags);
     console.log('tagsParams:', tagsParams)
     const tagList = document.querySelector('.tags.list');
-    let allTagsHTML = '';
+    const allTagsData = { tags: [] };
+    // let allTagsHTML = '';
 
     for (let tag in allTags) {
-        allTagsHTML += `<li><a class="${calculateTagClass(allTags[tag])}" href="#tag-${tag}">${tag}(${allTags[tag]})</a></li> `;
+        allTagsData.tags.push({
+            tag: tag, //`#tag-${tag}`
+            count: allTags[tag],
+            className: calculateTagClass(allTags[tag], tagsParams)
+        });
+        // allTagsHTML += `<li><a class="${calculateTagClass(allTags[tag])}" href="#tag-${tag}">${tag}(${allTags[tag]})</a></li> `;
     }
-    tagList.innerHTML = allTagsHTML;
+    tagList.innerHTML = templates.tagCloudLink(allTagsData);
+    // tagList.innerHTML = allTagsHTML;
+
 }
 function calculateTagClass(count) {
     return `${optCloudClassPrefix}${count}`
@@ -143,7 +161,7 @@ function generateAuthors() {
     let allAuthors = {}; //new
     const authors = document.querySelectorAll('.post-author');
     const postAuthors = document.querySelector('.authors');
-    let html = '';
+    const allAuthorsData = { authors: [] }; //new
     let arrAuthor = Array.from(authors).map(author => author.innerHTML.replace('by ', ''));
     // let finalAuthors = arrAuthor.filter((element, index) => {
     //     return arrAuthor.indexOf(element) === index;
@@ -156,12 +174,16 @@ function generateAuthors() {
         }
     }
     for (let finalAuthor in allAuthors) {
-        let linkHTML = `<li><a class="${optCloudClassPrefix}${allAuthors[finalAuthor]}" href="#tag-author-${lowercaseAndHyphenString(finalAuthor)}">${finalAuthor}(${allAuthors[finalAuthor]})</a></li>`;
-        html += linkHTML;
-        // const linkHTML = `<li><a href="#tag-author-${lowercaseAndHyphenString(finalAuthor)}">${finalAuthor}()</a></li>`;
+        allAuthorsData.authors.push({
+            finalAuthor: finalAuthor, 
+            count: allAuthors[finalAuthor],
+            className: allAuthors[finalAuthor],
+            hrefAuthor: lowercaseAndHyphenString(finalAuthor)
+        });
+        // let linkHTML = `<li><a class="${optCloudClassPrefix}${allAuthors[finalAuthor]}" href="#tag-author-${lowercaseAndHyphenString(finalAuthor)}">${finalAuthor}(${allAuthors[finalAuthor]})</a></li>`;
         // html += linkHTML;
     }
-    postAuthors.innerHTML = html;
+    postAuthors.innerHTML = templates.authorCloudLink(allAuthorsData);
 }
 generateAuthors();
 

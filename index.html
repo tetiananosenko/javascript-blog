@@ -8,6 +8,7 @@
     <title>js-blog</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="blog">
         <div class="container">
@@ -15,8 +16,8 @@
             <main class="wrapper">
                 <aside class="sidebar">
                     <h2 class="section-title">All posts</h2>
-                     <ul class="list titles">
-                    </ul> 
+                    <ul class="list titles">
+                    </ul>
                 </aside>
                 <section class="posts">
                     <article class="post active" id="article-1" data-tags="cactus" data-author="marion-berry">
@@ -42,11 +43,11 @@
                         </div>
                         <div class="post-tags">
                             <p><strong>Tags:</strong></p>
-                            <ul class="list list-horizontal">   
+                            <ul class="list list-horizontal">
                             </ul>
                         </div>
                     </article>
-                    <article class="post" id="article-2" data-tags="cat scissors"  data-author="theo-tabby">
+                    <article class="post" id="article-2" data-tags="cat scissors" data-author="theo-tabby">
                         <h3 class="post-title">Article 2</h3>
                         <p class="post-author">by Theo Tabby</p>
                         <div class="post-content">
@@ -71,7 +72,7 @@
                             </ul>
                         </div>
                     </article>
-                    <article class="post" id="article-3" data-tags="cactus scissors"  data-author="george-tuxedo">
+                    <article class="post" id="article-3" data-tags="cactus scissors" data-author="george-tuxedo">
                         <h3 class="post-title">Article 3</h3>
                         <p class="post-author">by George Tuxedo</p>
                         <div class="post-content">
@@ -92,7 +93,7 @@
                             </ul>
                         </div>
                     </article>
-                    <article class="post" id="article-4" data-tags="cactus scissors"  data-author="kitty-toebean">
+                    <article class="post" id="article-4" data-tags="cactus scissors" data-author="kitty-toebean">
                         <h3 class="post-title">Article 4</h3>
                         <p class="post-author">by Kitty Toebean</p>
                         <div class="post-content">
@@ -138,7 +139,7 @@
                             </ul>
                         </div>
                     </article>
-                    <article class="post" id="article-6" data-tags="cat scissors"  data-author="george-tuxedo">
+                    <article class="post" id="article-6" data-tags="cat scissors" data-author="george-tuxedo">
                         <h3 class="post-title">Article 6</h3>
                         <p class="post-author">by George Tuxedo</p>
                         <div class="post-content">
@@ -210,7 +211,7 @@
                             </ul>
                         </div>
                     </article>
-                    <article class="post" id="article-9" data-tags="cat cactus scissors"  data-author="marion-berry">
+                    <article class="post" id="article-9" data-tags="cat cactus scissors" data-author="marion-berry">
                         <h3 class="post-title">Article 9</h3>
                         <p class="post-author">by Marion Berry</p>
                         <div class="post-content">
@@ -234,7 +235,7 @@
                             </ul>
                         </div>
                     </article>
-                    <article class="post" id="article-10" data-tags="cat scissors"  data-author="george-tuxedo">
+                    <article class="post" id="article-10" data-tags="cat scissors" data-author="george-tuxedo">
                         <h3 class="post-title">Article 10</h3>
                         <p class="post-author">by George Tuxedo</p>
                         <div class="post-content">
@@ -259,7 +260,7 @@
                         <div class="post-tags">
                             <p><strong>Tags:</strong></p>
                             <ul class="list list-horizontal">
-                               
+
                             </ul>
                         </div>
                     </article>
@@ -270,12 +271,37 @@
                     </ul>
                     <h2 class="section-title">Authors</h2>
                     <ul class="list authors">
-                      
+
                     </ul>
                 </aside>
             </main>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+<!-- 1 -->
+    <script id="template-article-link" type="text/x-handlebars-template"> 
+  <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+    </script>
+
+    <!-- 2 -->
+    <script id="template-article-tags-link" type="text/x-handlebars-template">
+      <li><a href="#tag-{{ id }}">{{ id }}</a></li> 
+        </script>
+
+<!--4 -->
+    <script id="template-tag-cloud-link" type="text/x-handlebars-template">
+  {{#each tags}}
+  <li><a href="#tag-{{ tag }}" class="{{ className }}" >{{ tag }}({{ count }})</a></li>
+  {{/each}}
+    </script>
+
+    <!--5-->
+    <script id="template-author-cloud-link" type="text/x-handlebars-template">
+      {{#each authors}}
+      <li><a href="#tag-author-{{ hrefAuthor }}" class="tag-size-{{ className }}" >{{ finalAuthor }}({{ count }})</a></li>
+      {{/each}}
+        </script>
+
 
     <script src="js/script.js"></script>
 </body>
