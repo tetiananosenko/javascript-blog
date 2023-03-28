@@ -278,29 +278,23 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
-<!-- 1 -->
-    <script id="template-article-link" type="text/x-handlebars-template"> 
-  <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+    <!-- 1 -->
+    <script id="template-article-link" type="text/x-handlebars-template">
+        <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
     </script>
-
-    <!-- 2 -->
-    <script id="template-article-tags-link" type="text/x-handlebars-template">
-      <li><a href="#tag-{{ id }}">{{ id }}</a></li> 
-        </script>
-
-<!--4 -->
+    <!--4 -->
     <script id="template-tag-cloud-link" type="text/x-handlebars-template">
   {{#each tags}}
-  <li><a href="#tag-{{ tag }}" class="{{ className }}" >{{ tag }}({{ count }})</a></li>
+  <li><a href="#tag-{{ href }}" class="{{ className }}" >{{ tag }}({{ count }})</a></li>
   {{/each}}
     </script>
 
-    <!--5-->
+    <!-- 5
     <script id="template-author-cloud-link" type="text/x-handlebars-template">
       {{#each authors}}
-      <li><a href="#tag-author-{{ hrefAuthor }}" class="tag-size-{{ className }}" >{{ finalAuthor }}({{ count }})</a></li>
+      <li><a href="#tag-author-{{  tag }}" class="{{ className }}" >{{ finalAuthor }}({{ count }})</a></li>
       {{/each}}
-        </script>
+        </script> -->
 
 
     <script src="js/script.js"></script>
